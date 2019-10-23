@@ -20,6 +20,10 @@
         <servlet-name>StateForm</servlet-name>
         <servlet-class>StateForm</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>clientInStateForm</servlet-name>
+        <servlet-class>fr.rima.tpservlet.clientInStateForm</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -39,6 +43,10 @@
     <servlet-mapping>
         <servlet-name>StateForm</servlet-name>
         <url-pattern>/StateForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>clientInStateForm</servlet-name>
+        <url-pattern>/clientInStateForm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
