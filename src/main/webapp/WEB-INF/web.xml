@@ -8,6 +8,18 @@
         <servlet-name>ShowClientServlet</servlet-name>
         <servlet-class>fr.rima.tpservlet.ShowClientServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowClientInState</servlet-name>
+        <servlet-class>servlet.ShowClientInState</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewServlet1</servlet-name>
+        <servlet-class>fr.rima.tpservlet.NewServlet1</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>StateForm</servlet-name>
+        <servlet-class>StateForm</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>NewServlet</servlet-name>
         <url-pattern>/NewServlet</url-pattern>
@@ -15,6 +27,18 @@
     <servlet-mapping>
         <servlet-name>ShowClientServlet</servlet-name>
         <url-pattern>/ShowClientServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowClientInState</servlet-name>
+        <url-pattern>/ShowClientInState</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet1</servlet-name>
+        <url-pattern>/NewServlet1</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>StateForm</servlet-name>
+        <url-pattern>/StateForm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

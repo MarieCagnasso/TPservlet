@@ -1,7 +1,7 @@
 package fr.rima.tpservlet;
- 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import simplejdbc.CustomerEntity;
 import simplejdbc.DAO;
 import simplejdbc.DataSourceFactory;
- 
-@WebServlet(name = "ShowClient", urlPatterns = {"/ShowClient"})
-public class ShowClient extends HttpServlet {
- 
+
+/**
+ *
+ * @author marie
+ */
+@WebServlet(name = "stateForm", urlPatterns = {"/stateForm"})
+public class StateForm extends HttpServlet {
+
     /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
      *
      * @param request servlet request
      * @param response servlet response
@@ -25,34 +30,29 @@ public class ShowClient extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
- 
+            throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ShowClient</title>");
+            out.println("<title>Servlet StateForm</title>");            
             out.println("</head>");
             out.println("<body>");
-            try {   // Trouver la valeur du paramètre HTTP customerID
-                String val = request.getParameter("customerID");
-                if (val == null) {
-                    throw new Exception("La paramètre customerID n'a pas été transmis");
-                }
-                // on doit convertir cette valeur en entier (attention aux exceptions !)
-                int customerID = Integer.valueOf(val);
+            
+            try {   
+                
  
-                DAO dao = new DAO(DataSourceFactory.getDataSource());
-                CustomerEntity customer = dao.findCustomer(customerID);
-                if (customer == null) {
-                    throw new Exception("Client inconnu");
-                }
-                // Afficher les propriétés du client         
-                out.printf("Customer n° %d <br> name: %s <br> address: %s",
-                    customerID,
-                    customer.getName(),
-                    customer.getAddressLine1());
+                DAO2 dao = new fr.rima.tpservlet.DAO2(DataSourceFactory.getDataSource());
+                List<String> state = dao.States() ;
+                
+               out.print("<form method='POST' action=clientInState><select name='state'>");
+               for (int i=0; i<state.size();i++){
+                   out.printf(" <option value='%s'>%s</option>", state.get(i), state.get(i));
+               }
+                out.print("</select><button type='submit'>Recherche</button></form>");
+  
+                
             } catch (Exception e) {
                 out.printf("Erreur : %s", e.getMessage());
             }
@@ -63,7 +63,8 @@ public class ShowClient extends HttpServlet {
             Logger.getLogger("servlet").log(Level.SEVERE, "Erreur de traitement", ex);
         }
     }
- 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -74,10 +75,10 @@ public class ShowClient extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
- 
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -88,10 +89,11 @@ public class ShowClient extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-        processRequest(request, response);
+            throws ServletException, IOException {
+        
+
     }
- 
+
     /**
      * Returns a short description of the servlet.
      *
@@ -100,6 +102,6 @@ public class ShowClient extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
- 
+    }// </editor-fold>
+
 }
